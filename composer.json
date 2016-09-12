@@ -1,0 +1,26 @@
+{
+    "name": "sylletka/yii2-log",
+    "type": "yii2-extension",
+    "description": "This extension provides pages to browse the logs stored in database",
+    "keywords": ["yii2", "log"],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/sylletka/yii2-log/issues",
+        "wiki": "https://github.com/sylletka/yii2-log/wiki",
+        "source": "https://github.com/sylletka/yii2-log"
+    },
+    "authors": [
+        {
+            "name": "Samuele Saorin",
+            "email": "sylletka@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "sylletka\\log\\": ""
+        }
+    }
+}
