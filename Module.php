@@ -11,14 +11,6 @@ class Module extends \yii\base\Module
      * @inheritdoc
      */
     public $controllerNamespace = 'sylletka\log\controllers';
+    public $defaultRoute = 'browse';
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-
-        // custom initialization code goes here
-    }
 }
