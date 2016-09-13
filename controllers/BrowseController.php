@@ -4,6 +4,7 @@ namespace sylletka\log\controllers;
 
 use Yii;
 use sylletka\log\models\Log;
+use sylletka\log\models\LogSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +22,7 @@ class BrowseController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
             'access' => [
@@ -44,11 +45,10 @@ class BrowseController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Log::find()->orderBy('log_time DESC'),
-        ]);
-
+        $searchModel = new LogSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+            'searchModel' => $searchModel, 
             'dataProvider' => $dataProvider,
         ]);
     }
