@@ -3,6 +3,7 @@
 namespace sylletka\log\models;
 
 use Yii;
+use yii\helpers\BaseArrayHelper;
 
 /**
  * This is the model class for table "log".
@@ -50,4 +51,5 @@ class Log extends \yii\db\ActiveRecord
             'message' => Yii::t('app', 'Message'),
         ];
     }
+
 }

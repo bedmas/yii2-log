@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\i18n\Formatter;
 use yii\log\Logger;
+use yii\helpers\ArrayHelper;
 
 
 /* @var $this yii\web\View */
@@ -12,6 +13,8 @@ use yii\log\Logger;
 
 $this->title = Yii::t('app', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
+$allCategoriesArray = ArrayHelper::getColumn($allCategories, 'category');
+$categoriesList = array_combine( $allCategoriesArray, $allCategoriesArray  );
 ?>
 <div class="log-index">
 
@@ -29,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $formatter->asDatetime($splitSeconds[0]);
                 }
             ],
-            'category',
+            [
+                'attribute' => 'category',
+                'filter' => $categoriesList,
+            ],
             'prefix:ntext',
             [
                 'attribute' => 'message',

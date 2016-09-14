@@ -47,9 +47,11 @@ class BrowseController extends Controller
     {
         $searchModel = new LogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $allCategories = Log::find()->select('category')->distinct()->all();
         return $this->render('index', [
             'searchModel' => $searchModel, 
             'dataProvider' => $dataProvider,
+            'allCategories' => $allCategories,
         ]);
     }
 
