@@ -13,9 +13,15 @@ use yii\helpers\ArrayHelper;
 
 $this->title = Yii::t('app', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
-$allCategoriesArray = ArrayHelper::getColumn($allCategories, 'category');
-$categoriesList = array_combine( $allCategoriesArray, $allCategoriesArray  );
+
+$categoriesArray = ArrayHelper::getColumn($categories, 'category');
+$categoriesList = array_combine( $categoriesArray, $categoriesArray  );
+$levelsArray = ArrayHelper::getColumn($levels, 'level');
+$levelsLabels = array_map( function($level){ return Logger::getLevelName($level);},$levelsArray );
+$levelsList = array_combine( $levelsArray, $levelsLabels  );
+
 ?>
+
 <div class="log-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -36,6 +42,14 @@ $categoriesList = array_combine( $allCategoriesArray, $allCategoriesArray  );
                 'attribute' => 'category',
                 'filter' => $categoriesList,
             ],
+            [
+                'attribute' => 'level',
+                'filter' => $levelsList,
+                'value' => function($model, $key, $index, $column){
+                    return Logger::getLevelName($model->level);
+                }
+            ],
+
             'prefix:ntext',
             [
                 'attribute' => 'message',
