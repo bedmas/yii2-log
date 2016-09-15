@@ -19,5 +19,8 @@ class Module extends \yii\base\Module
      * @var integer the maximum lenght of the log messages displayed in index
      */
     public $messageLen = 200;
-
+    /**
+     * @var string the DB application component ID of the DB connection.
+     */
+    public $db = 'db';
 }
