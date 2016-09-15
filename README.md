@@ -2,7 +2,7 @@
 Database driven log for yii2 projects
 This module adds pages to browse the log events
 
-Install
+##Install
 
 1. configure at least one log target as a DbTarget
 
@@ -19,6 +19,6 @@ Install
     ......
 ```
 
-Usage
+##Usage
 
 go to /log/browse to view the Log entries
