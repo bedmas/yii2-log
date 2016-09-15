@@ -12,5 +12,6 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'sylletka\log\controllers';
     public $defaultRoute = 'browse';
+    public $messageLen = 200;
 
 }
