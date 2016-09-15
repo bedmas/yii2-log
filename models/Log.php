@@ -24,7 +24,7 @@ class Log extends \yii\db\ActiveRecord
     public static function getDb()
     {
         $module = Module::getInstance();
-        $db = $module->params['db'];
+        $db = $module->db;
         return Yii::$app->{$db};  
     }
     /**
