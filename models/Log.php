@@ -4,6 +4,7 @@ namespace sylletka\log\models;
 
 use Yii;
 use yii\helpers\BaseArrayHelper;
+use sylletka\log\Module;
 
 /**
  * This is the model class for table "log".
@@ -17,6 +18,15 @@ use yii\helpers\BaseArrayHelper;
  */
 class Log extends \yii\db\ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */    
+    public static function getDb()
+    {
+        $module = Module::getInstance();
+        $db = $module->params['db'];
+        return Yii::$app->{$db};  
+    }
     /**
      * {@inheritdoc}
      */
