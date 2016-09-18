@@ -70,7 +70,7 @@ class LogSearch extends Log
             'log_time' => $this->log_time,
         ]);
 
-        $query->andFilterWhere(['like', 'category', $this->category])
+        $query->andFilterWhere(['category' => $this->category])
             ->andFilterWhere(['like', 'prefix', $this->prefix])
             ->andFilterWhere(['like', 'message', $this->message]);
 
