@@ -21,4 +21,4 @@ This module adds pages to browse the log events
 
 ##Usage
 
-go to /log/browse to view the Log entries
+go to /log to view the Log entries
