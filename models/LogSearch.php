@@ -12,6 +12,12 @@ use sylletka\log\models\Log;
  */
 class LogSearch extends Log
 {
+
+    public $log_time_begin;
+    public $log_time_begin_datepicker;
+    public $log_time_end;
+    public $log_time_end_datepicker;
+
     /**
      * @inheritdoc
      */
@@ -19,8 +25,9 @@ class LogSearch extends Log
     {
         return [
             [['id', 'level'], 'integer'],
-            [['category', 'prefix', 'message'], 'safe'],
-            [['log_time'], 'number'],
+            [['log_time_begin_datepicker', 'log_time_end_datepicker'], 'string'],
+            [['log_time_begin', 'log_time_end', 'log_time_begin_datepicker', 'log_time_end_datepicker', 'category', 'prefix', 'message'], 'safe'],
+            [['log_time_begin', 'log_time_end'], 'number'],
         ];
     }
 
@@ -67,11 +74,15 @@ class LogSearch extends Log
         $query->andFilterWhere([
             'id' => $this->id,
             'level' => $this->level,
-            'log_time' => $this->log_time,
+//            'log_time' => $this->log_time,
+            'category' => $this->category
         ]);
 
-        $query->andFilterWhere(['category' => $this->category])
-            ->andFilterWhere(['like', 'prefix', $this->prefix])
+        $query->andFilterWhere(['<=', 'log_time', $this->log_time_end]);
+
+        $query->andFilterWhere(['>=', 'log_time', $this->log_time_begin]);
+
+        $query->andFilterWhere(['like', 'prefix', $this->prefix])
             ->andFilterWhere(['like', 'message', $this->message]);
 
         return $dataProvider;

@@ -49,11 +49,15 @@ class BrowseController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $categories = Log::find()->select('category')->distinct()->all();
         $levels = Log::find()->select('level')->distinct()->all();
+        $minDate = Log::find()->select('log_time')->min('log_time'); 
+        $maxDate = Log::find()->select('log_time')->max('log_time'); 
         return $this->render('index', [
             'searchModel' => $searchModel, 
             'dataProvider' => $dataProvider,
             'categories' => $categories,
             'levels' => $levels,
+            'minDate' => $minDate,
+            'maxDate' => $maxDate,
         ]);
     }
 
