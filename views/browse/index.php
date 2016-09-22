@@ -20,10 +20,10 @@ $this->title = Yii::t('app', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
 
 $categoriesArray = ArrayHelper::getColumn($categories, 'category');
-$categoriesList = array_merge([''=>''], array_combine( $categoriesArray, $categoriesArray  ));
+$categoriesList = [''=>''] + array_combine( $categoriesArray, $categoriesArray  );
 $levelsArray = ArrayHelper::getColumn($levels, 'level');
 $levelsLabels = array_map( function($level){ return Logger::getLevelName($level);},$levelsArray );
-$levelsList = array_merge([''=>''], array_combine( $levelsArray, $levelsLabels  ));
+$levelsList = [''=>''] + array_combine( $levelsArray, $levelsLabels  );
 
 $this->registerJs("minDate = " . new JsExpression('new Date(' . number_format($minDate, 3, "", "") . ')') . ";", View::POS_HEAD);
 $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($maxDate, 3, "", "") . ')') . ";", View::POS_HEAD);
@@ -129,7 +129,6 @@ $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($m
     <h1><?= Html::encode($this->title) ?></h1>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel, 
         'columns' => [
             'id',
             [
@@ -140,9 +139,7 @@ $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($m
                     return $formatter->asDatetime($splitSeconds[0]);
                 },
             ],
-            [
-                'attribute' => 'category',
-            ],
+            'category',
             [
                 'attribute' => 'level',
                 'value' => function($model, $key, $index, $column){
