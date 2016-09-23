@@ -38,6 +38,7 @@ class Log extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    /*
     public function rules()
     {
         return [
@@ -46,6 +47,7 @@ class Log extends \yii\db\ActiveRecord
             [['category'], 'string', 'max' => 64],
         ];
     }
+    */
 
     /**
      * {@inheritdoc}

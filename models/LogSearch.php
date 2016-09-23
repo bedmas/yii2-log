@@ -14,9 +14,9 @@ class LogSearch extends Log
 {
 
     public $log_time_begin;
-    public $log_time_begin_datepicker;
+//    public $log_time_begin_datepicker;
     public $log_time_end;
-    public $log_time_end_datepicker;
+//    public $log_time_end_datepicker;
 
     /**
      * @inheritdoc
@@ -25,9 +25,9 @@ class LogSearch extends Log
     {
         return [
             [['id', 'level'], 'integer'],
-            [['log_time_begin_datepicker', 'log_time_end_datepicker'], 'string'],
-            [['log_time_begin', 'log_time_end', 'log_time_begin_datepicker', 'log_time_end_datepicker', 'category', 'prefix', 'message'], 'safe'],
-            [['log_time_begin', 'log_time_end'], 'number'],
+//            [['log_time_begin_datepicker', 'log_time_end_datepicker'], 'string'],
+            [['log_time_begin', 'log_time_end', 'category', 'prefix', 'message'], 'safe'],
+            [['log_time_begin', 'log_time_end'], 'string'],
         ];
     }
 
@@ -77,10 +77,12 @@ class LogSearch extends Log
 //            'log_time' => $this->log_time,
             'category' => $this->category
         ]);
-
-        $query->andFilterWhere(['<=', 'log_time', $this->log_time_end]);
-
-        $query->andFilterWhere(['>=', 'log_time', $this->log_time_begin]);
+        if ($this->log_time_end){
+            $query->andFilterWhere(['<=', 'log_time', strtotime($this->log_time_end)]);
+        }
+        if ($this->log_time_begin){
+            $query->andFilterWhere(['>=', 'log_time', strtotime($this->log_time_begin)]);
+        }
 
         $query->andFilterWhere(['like', 'prefix', $this->prefix])
             ->andFilterWhere(['like', 'message', $this->message]);
