@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'log_time',
                 'content' => function($model, $key, $index, $column){
-                    return date( "c", $model->log_time);
+                     $splitSeconds = explode(".", $model->log_time);
+                     $formatter = new Formatter;
+                     return $formatter->asDatetime($splitSeconds[0]);
                 },
             ],
             'category',

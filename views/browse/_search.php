@@ -42,7 +42,6 @@ $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($m
             }',
         ]
     ]);?>
-
     <?= $form->field($searchModel, 'log_time_end')->widget(DateTimePicker::className(), [
         'clientOptions' => [
             'format' => 'yyyy-mm-dd hh:ii', 
@@ -54,18 +53,13 @@ $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($m
             }',
         ]
     ]);?>
-
-
     <?= $form->field($searchModel, 'prefix', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']]) ?>
     <?= $form->field($searchModel, 'message', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']]) ?>
     </div>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
 
