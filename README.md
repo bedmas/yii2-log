@@ -1,9 +1,6 @@
 # yii2-log
 This module provides a simple way to view the log entries stored in database via yii\log\DbTarget
 
-Database driven log for yii2 projects
-This module adds pages to browse the log events
-
 ##Install
 
 1. configure at least one log target as a DbTarget
