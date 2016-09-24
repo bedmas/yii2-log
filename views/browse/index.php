@@ -3,7 +3,6 @@
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\i18n\Formatter;
-use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\FormatConverter;
 use yii\log\Logger;
 use yii\helpers\Html;

@@ -6,6 +6,7 @@ use yii\web\View;
 use yii\bootstrap\ActiveField;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use dosamigos\datetimepicker\DateTimePicker;
 
 
 ?>
@@ -22,19 +23,6 @@ $this->registerJs("maxDate = " . new JsExpression('new Date(' . number_format($m
 
 
 ?>
-<pre>
-<?php
-echo $searchModel->log_time_begin;
-?>
-<?php
-echo $searchModel->log_time_end;
-?>
-
-
-</pre>
-
-
-
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
@@ -43,72 +31,31 @@ echo $searchModel->log_time_end;
     <div class="row">
     <?= $form->field($searchModel, 'level', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']])->dropDownList($levelsList) ?>
     <?= $form->field($searchModel, 'category', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']])->dropDownList($categoriesList) ?>
-    <?= $form->field(
-        $searchModel, 
-        'log_time_begin', 
-        [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-6'
-            ]
-        ])->widget(
-            'trntv\yii\datetime\DateTimeWidget',
-            [
-                'id' => 'logsearch-log_time_begin_widget',
-                'showInputAddon' => false,
-                'momentDatetimeFormat' => 'YYYY-MM-DDTHH:mm:ssZ',
-                'clientEvents' => [
-                    'dp.change' => 'function(e){
-                        if ( e.date === false ){
-                            $("#logsearch-log_time_end_widget").data("DateTimePicker").minDate("' . date( "c", $minDate) . '");
-                        } else {
-                            $("#logsearch-log_time_end_widget").data("DateTimePicker").minDate(e.date);
-                        }
-                    }',
-                ],
-                'clientOptions' => [
-                    'minDate' => new JsExpression('new Date(' . number_format($minDate, 3, "", "") . ')'),
-                    'maxDate' =>  new JsExpression('new Date(' . number_format($maxDate, 3, "", "") . ')'),
-                    'allowInputToggle' => true,
-                    'sideBySide' => true,
-                    'useCurrent' => false,
-                    'format' => 'YYYY-MM-DDTHH:mm:ssZ',
-                    'defaultDate' => ($searchModel->log_time_begin) ?  $searchModel->log_time_begin : false,
-                ]
-            ]
-        ); ?>
-    <?= $form->field(
-        $searchModel, 
-        'log_time_end', 
-        [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-6'
-            ]
-        ])->widget(
-            'trntv\yii\datetime\DateTimeWidget',
-            [
-                'id' => 'logsearch-log_time_end_widget',
-                'showInputAddon' => false,
-                'momentDatetimeFormat' => 'YYYY-MM-DDTHH:mm:ssZ',
-                'clientEvents' => [
-                    'dp.change' => 'function(e){
-                        if ( e.date === false ){ 
-                            $("#logsearch-log_time_begin_widget").data("DateTimePicker").maxDate("' .  date( "c", $maxDate) . '");
-                        } else {
-                            $("#logsearch-log_time_begin_widget").data("DateTimePicker").maxDate(e.date);
-                        }
-                    }',
-                ],
-                'clientOptions' => [
-                    'minDate' => new JsExpression('new Date(' . number_format($minDate, 3, "", "") . ')'),
-                    'maxDate' => new JsExpression('new Date(' . number_format($maxDate, 3, "", "") . ')'),
-                    'allowInputToggle' => true,
-                    'sideBySide' => true,
-                    'useCurrent' => false,
-                    'format' => 'YYYY-MM-DDTHH:mm:ssZ',
-                    'defaultDate' => ($searchModel->log_time_end) ? $searchModel->log_time_end : false,
-                ]
-            ]
-        ); ?>
+    <?= $form->field($searchModel, 'log_time_begin')->widget(DateTimePicker::className(), [
+        'clientOptions' => [
+            'format' => 'yyyy-mm-dd hh:ii',
+        ],
+        'clientEvents' => [
+            'changeDate' => 'function(e){                
+                console.log(e.date.valueOf());
+                jQuery("#logsearch-log_time_end").parent().datetimepicker("setStartDate", e.date);
+            }',
+        ]
+    ]);?>
+
+    <?= $form->field($searchModel, 'log_time_end')->widget(DateTimePicker::className(), [
+        'clientOptions' => [
+            'format' => 'yyyy-mm-dd hh:ii', 
+        ],
+        'clientEvents' => [
+            'changeDate' => 'function(e){
+                console.log(e.date.valueOf());
+                jQuery("#logsearch-log_time_begin").parent().datetimepicker("setEndDate", e.date);
+            }',
+        ]
+    ]);?>
+
+
     <?= $form->field($searchModel, 'prefix', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']]) ?>
     <?= $form->field($searchModel, 'message', ['horizontalCssClasses' => ['wrapper' => 'col-sm-6']]) ?>
     </div>
